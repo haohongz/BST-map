@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug BST Tests",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/BinarySearchTree_tests.exe",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build BST tests"
+    },
+    {
+      "name": "Debug BST Public Tests",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/BinarySearchTree_public_tests.exe",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build BST public tests"
+    },
+    {
+      "name": "Debug Map Tests",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Map_tests.exe",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build Map tests"
+    }
+  ]
+}

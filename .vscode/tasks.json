@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build BST tests",
+      "type": "shell",
+      "command": "make BinarySearchTree_tests.exe"
+    },
+    {
+      "label": "build BST public tests",
+      "type": "shell",
+      "command": "make BinarySearchTree_public_tests.exe"
+    },
+    {
+      "label": "build Map tests",
+      "type": "shell",
+      "command": "make Map_tests.exe"
+    }
+  ]
+}
