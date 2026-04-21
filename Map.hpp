@@ -32,6 +32,11 @@ private:
 
   // A custom comparator
   class PairComp {
+  public:
+    bool operator()(const Pair_type &lhs, const Pair_type &rhs) const {
+      Key_compare less;
+      return less(lhs.first, rhs.first);
+    }
   };
 
 public:
@@ -61,11 +66,15 @@ public:
 
 
   // EFFECTS : Returns whether this Map is empty.
-  bool empty() const;
+  bool empty() const{
+    return bst.empty();
+  }
 
   // EFFECTS : Returns the number of elements in this Map.
   // NOTE : size_t is an integral type from the STL
-  size_t size() const;
+  size_t size() const{
+    return bst.size();
+  }
 
   // EFFECTS : Searches this Map for an element with a key equivalent
   //           to k and returns an Iterator to the associated value if found,
@@ -74,7 +83,9 @@ public:
   // HINT: Since Map is implemented using a BinarySearchTree that stores
   //       (key, value) pairs, you'll need to construct a dummy value
   //       using "Value_type()".
-  Iterator find(const Key_type& k) const;
+  Iterator find(const Key_type& k) const{
+    return bst.find({k, Value_type()});
+  }
 
   // MODIFIES: this
   // EFFECTS : Returns a reference to the mapped value for the given
@@ -105,13 +116,18 @@ public:
   std::pair<Iterator, bool> insert(const Pair_type &val);
 
   // EFFECTS : Returns an iterator to the first key-value pair in this Map.
-  Iterator begin() const;
+  Iterator begin() const{
+    return bst.begin();
+  }
 
   // EFFECTS : Returns an iterator to "past-the-end".
-  Iterator end() const;
+  Iterator end() const{
+    return bst.end();
+  }
 
 private:
   // Add a BinarySearchTree private member HERE.
+  BinarySearchTree<Pair_type, PairComp> bst;
 };
 
 // You may implement member functions below using an "out-of-line" definition
@@ -124,5 +140,28 @@ private:
 //    typename Map<K, V, C>::Iterator Map<K, V, C>::begin() const {
 //      // YOUR IMPLEMENTATION GOES HERE
 //    }
+
+template <typename K, typename V, typename C>
+V& Map<K, V, C>::operator[](const K& k) {
+  Iterator it = find(k);
+  if (it == end()) {
+    auto result = insert({k, V()});
+    it = result.first;
+  }
+  return (*it).second;
+}
+
+template <typename K, typename V, typename C>
+std::pair<typename Map<K, V, C>::Iterator, bool> Map<K, V, C>::insert(
+    const Pair_type &val) {
+  Iterator it = find(val.first);
+  if (it != end()) {
+    return {it, false};
+  }
+  Iterator new_it = bst.insert(val);
+  return {new_it, true};
+}
+ 
+
 
 #endif // DO NOT REMOVE!!!
